@@ -1,25 +1,25 @@
 package internal
 
 import (
-	"errors"
-	"math"
 	"rh/cmd"
-	"time"
+	"rh/internal/validacao"
 )
 
-func ReajustarSalario(f *cmd.Funcionario, aumento float64) error {
-	percentualReajuste := roundFloat(aumento/f.GetSalario(), 1)
-	if percentualReajuste > 0.4 {
-		return errors.New("reajuste nao pode ser superior a 40% do salario")
+func ReajustarSalario(f *cmd.Funcionario, aumento float64) []error {
+	data := map[string][]interface{}{
+		"percentual":    {f.GetSalario(), aumento},
+		"periodicidade": {f.DataUltimoReajuste},
 	}
 
-	f.AtualizarSalario(aumento)
-	f.DataUltimoReajuste = time.Now()
-
-	return nil
+	validator := criarValidatorComRegras()
+	errors := validator.Validar(data)
+	return errors
 }
 
-func roundFloat(val float64, precision uint) float64 {
-	ratio := math.Pow(10, float64(precision))
-	return math.Round(val*ratio) / ratio
+func criarValidatorComRegras() validacao.Validator {
+	validator := validacao.Validator{}
+	validator.Add("percentual", validacao.ValidarPercentual(0.4))
+	validator.Add("periodicidade", validacao.ValidarPeriodo(6))
+
+	return validator
 }
