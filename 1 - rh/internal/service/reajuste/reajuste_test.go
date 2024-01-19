@@ -3,7 +3,7 @@ package internal_test
 import (
 	"fmt"
 	"rh/cmd"
-	"rh/internal"
+	internal "rh/internal/service/reajuste"
 	"testing"
 	"time"
 )

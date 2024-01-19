@@ -3,7 +3,7 @@ package internal
 import (
 	"fmt"
 	"rh/cmd"
-	"rh/internal/validacao"
+	"rh/internal/service/reajuste/validacao"
 	"strings"
 	"time"
 )
