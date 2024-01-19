@@ -5,6 +5,7 @@ import (
 	"rh/cmd"
 	"rh/internal/validacao"
 	"strings"
+	"time"
 )
 
 func validarDadosReajuste(f *cmd.Funcionario, aumento float64) []error {
@@ -34,6 +35,7 @@ func ReajustarSalario(f *cmd.Funcionario, aumento float64) error {
 	}
 
 	f.AtualizarSalario(aumento)
+	f.DataUltimoReajuste = time.Now()
 
 	return nil
 }
