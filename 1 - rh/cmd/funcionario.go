@@ -18,4 +18,5 @@ func (f *Funcionario) GetSalario() float64 {
 
 func (f *Funcionario) AtualizarSalario(aumento float64) {
 	f.salario += aumento
+	f.DataUltimoReajuste = time.Now()
 }

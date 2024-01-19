@@ -1,25 +1,39 @@
 package internal
 
 import (
+	"fmt"
 	"rh/cmd"
 	"rh/internal/validacao"
+	"strings"
 )
 
-func ReajustarSalario(f *cmd.Funcionario, aumento float64) []error {
-	data := map[string][]interface{}{
-		"percentual":    {f.GetSalario(), aumento},
-		"periodicidade": {f.DataUltimoReajuste},
+func validarDadosReajuste(f *cmd.Funcionario, aumento float64) []error {
+	validacoes := []validacao.ValidacaoReajuste{
+		validacao.ValidacaoPercentual{},
+		validacao.ValidacaoPeriodicidade{},
 	}
 
-	validator := criarValidatorComRegras()
-	errors := validator.Validar(data)
+	var errors []error
+	for _, validacao := range validacoes {
+		if err := validacao.Validate(f, aumento); err != nil {
+			errors = append(errors, err)
+		}
+	}
+
 	return errors
 }
 
-func criarValidatorComRegras() validacao.Validator {
-	validator := validacao.Validator{}
-	validator.Add("percentual", validacao.ValidarPercentual(0.4))
-	validator.Add("periodicidade", validacao.ValidarPeriodo(6))
+func ReajustarSalario(f *cmd.Funcionario, aumento float64) error {
+	errors := validarDadosReajuste(f, aumento)
+	if len(errors) > 0 {
+		var strErr string
+		for _, err := range errors {
+			strErr += err.Error() + "\n"
+		}
+		return fmt.Errorf(strings.Trim(strErr, "\n"))
+	}
 
-	return validator
+	f.AtualizarSalario(aumento)
+
+	return nil
 }
