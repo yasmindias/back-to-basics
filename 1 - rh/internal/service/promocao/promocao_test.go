@@ -8,15 +8,17 @@ import (
 
 func Test_PromocaoAssistente(t *testing.T) {
 	f := model.Funcionario{
-		Nome:               "John Doe",
-		Cpf:                "01234567899",
-		Cargo:              model.Assistente,
+		DadosPessoais: model.DadosPessoais{
+			Nome:  "John Doe",
+			Cpf:   "01234567899",
+			Cargo: model.Assistente,
+		},
 		DataUltimoReajuste: time.Now().AddDate(-1, 0, 0),
 	}
-	f.Promover(f.Cargo.ProximoCargo())
+	f.Promover(f.DadosPessoais.Cargo.ProximoCargo())
 
 	want := model.Analista
-	got := f.Cargo
+	got := f.DadosPessoais.Cargo
 
 	if got != want {
 		t.Errorf("got: %v \n wanted %v", got, want)
@@ -25,15 +27,17 @@ func Test_PromocaoAssistente(t *testing.T) {
 
 func Test_PromocaoAnalista(t *testing.T) {
 	f := model.Funcionario{
-		Nome:               "John Doe",
-		Cpf:                "01234567899",
-		Cargo:              model.Analista,
+		DadosPessoais: model.DadosPessoais{
+			Nome:  "John Doe",
+			Cpf:   "01234567899",
+			Cargo: model.Assistente,
+		},
 		DataUltimoReajuste: time.Now().AddDate(-1, 0, 0),
 	}
-	f.Promover(f.Cargo.ProximoCargo())
+	f.Promover(f.DadosPessoais.Cargo.ProximoCargo())
 
 	want := model.Especialista
-	got := f.Cargo
+	got := f.DadosPessoais.Cargo
 
 	if got != want {
 		t.Errorf("got: %v \n wanted %v", got, want)
@@ -42,15 +46,17 @@ func Test_PromocaoAnalista(t *testing.T) {
 
 func Test_PromocaoEspecialista(t *testing.T) {
 	f := model.Funcionario{
-		Nome:               "John Doe",
-		Cpf:                "01234567899",
-		Cargo:              model.Especialista,
+		DadosPessoais: model.DadosPessoais{
+			Nome:  "John Doe",
+			Cpf:   "01234567899",
+			Cargo: model.Assistente,
+		},
 		DataUltimoReajuste: time.Now().AddDate(-1, 0, 0),
 	}
-	f.Promover(f.Cargo.ProximoCargo())
+	f.Promover(f.DadosPessoais.Cargo.ProximoCargo())
 
 	want := model.Gerente
-	got := f.Cargo
+	got := f.DadosPessoais.Cargo
 
 	if got != want {
 		t.Errorf("got: %v \n wanted %v", got, want)
@@ -59,15 +65,17 @@ func Test_PromocaoEspecialista(t *testing.T) {
 
 func Test_PromocaoGerente_Error(t *testing.T) {
 	f := model.Funcionario{
-		Nome:               "John Doe",
-		Cpf:                "01234567899",
-		Cargo:              model.Gerente,
+		DadosPessoais: model.DadosPessoais{
+			Nome:  "John Doe",
+			Cpf:   "01234567899",
+			Cargo: model.Assistente,
+		},
 		DataUltimoReajuste: time.Now().AddDate(-1, 0, 0),
 	}
-	f.Promover(f.Cargo.ProximoCargo())
+	f.Promover(f.DadosPessoais.Cargo.ProximoCargo())
 
 	want := model.Gerente
-	got := f.Cargo
+	got := f.DadosPessoais.Cargo
 
 	if got != want {
 		t.Errorf("got: %v \n wanted %v", got, want)

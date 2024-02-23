@@ -12,7 +12,7 @@ func (vpct ValidacaoPercentual) Validate(value ...interface{}) error {
 	f := value[0].(*model.Funcionario)
 	aumento := value[1].(float64)
 
-	percentualReajuste := roundFloat(aumento/f.GetSalario(), 1)
+	percentualReajuste := roundFloat(aumento/f.DadosPessoais.GetSalario(), 1)
 	if percentualReajuste > 0.4 {
 		return errors.New("reajuste nao pode ser superior a 40%% do salario")
 	}
