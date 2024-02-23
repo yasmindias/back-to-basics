@@ -18,5 +18,8 @@ func (f *Funcionario) GetSalario() float64 {
 
 func (f *Funcionario) AtualizarSalario(aumento float64) {
 	f.salario += aumento
+}
 
+func (f *Funcionario) Promover(novoCargo Cargo) {
+	f.Cargo = novoCargo
 }

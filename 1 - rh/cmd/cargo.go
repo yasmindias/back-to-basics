@@ -22,3 +22,15 @@ func (c Cargo) String() string {
 	}
 	return "unknown"
 }
+
+func (c Cargo) ProximoCargo() Cargo {
+	switch c {
+	case Assistente:
+		return Analista
+	case Analista:
+		return Especialista
+	case Especialista:
+		return Gerente
+	}
+	return Gerente
+}
