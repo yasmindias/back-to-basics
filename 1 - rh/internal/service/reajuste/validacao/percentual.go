@@ -3,13 +3,13 @@ package validacao
 import (
 	"errors"
 	"math"
-	"rh/cmd"
+	"rh/cmd/model"
 )
 
 type ValidacaoPercentual struct{}
 
 func (vpct ValidacaoPercentual) Validate(value ...interface{}) error {
-	f := value[0].(*cmd.Funcionario)
+	f := value[0].(*model.Funcionario)
 	aumento := value[1].(float64)
 
 	percentualReajuste := roundFloat(aumento/f.GetSalario(), 1)

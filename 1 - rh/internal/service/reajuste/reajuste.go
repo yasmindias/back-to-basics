@@ -2,13 +2,13 @@ package internal
 
 import (
 	"fmt"
-	"rh/cmd"
+	"rh/cmd/model"
 	"rh/internal/service/reajuste/validacao"
 	"strings"
 	"time"
 )
 
-func validarDadosReajuste(f *cmd.Funcionario, aumento float64) []error {
+func validarDadosReajuste(f *model.Funcionario, aumento float64) []error {
 	validacoes := []validacao.ValidacaoReajuste{
 		validacao.ValidacaoPercentual{},
 		validacao.ValidacaoPeriodicidade{},
@@ -24,7 +24,7 @@ func validarDadosReajuste(f *cmd.Funcionario, aumento float64) []error {
 	return errors
 }
 
-func ReajustarSalario(f *cmd.Funcionario, aumento float64) error {
+func ReajustarSalario(f *model.Funcionario, aumento float64) error {
 	errors := validarDadosReajuste(f, aumento)
 	if len(errors) > 0 {
 		var strErr string

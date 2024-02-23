@@ -2,7 +2,7 @@ package validacao
 
 import (
 	"fmt"
-	"rh/cmd"
+	"rh/cmd/model"
 	"time"
 )
 
@@ -13,7 +13,7 @@ const (
 type ValidacaoPeriodicidade struct{}
 
 func (vpr ValidacaoPeriodicidade) Validate(value ...interface{}) error {
-	f := value[0].(*cmd.Funcionario)
+	f := value[0].(*model.Funcionario)
 
 	ultimoReajuste := f.DataUltimoReajuste
 	tempoPassado := time.Since(ultimoReajuste)

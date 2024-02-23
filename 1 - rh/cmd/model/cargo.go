@@ -1,4 +1,4 @@
-package cmd
+package model
 
 type Cargo int64
 

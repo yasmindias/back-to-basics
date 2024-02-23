@@ -2,11 +2,11 @@ package promocao
 
 import (
 	"fmt"
-	"rh/cmd"
+	"rh/cmd/model"
 )
 
-func Promover(f *cmd.Funcionario, metaBatida bool) error {
-	if f.Cargo == cmd.Gerente {
+func Promover(f *model.Funcionario, metaBatida bool) error {
+	if f.Cargo == model.Gerente {
 		return fmt.Errorf("gerentes nao podem ser promovidos")
 	}
 

@@ -1,21 +1,21 @@
 package promocao_test
 
 import (
-	"rh/cmd"
+	"rh/cmd/model"
 	"testing"
 	"time"
 )
 
 func Test_PromocaoAssistente(t *testing.T) {
-	f := cmd.Funcionario{
+	f := model.Funcionario{
 		Nome:               "John Doe",
 		Cpf:                "01234567899",
-		Cargo:              cmd.Assistente,
+		Cargo:              model.Assistente,
 		DataUltimoReajuste: time.Now().AddDate(-1, 0, 0),
 	}
 	f.Promover(f.Cargo.ProximoCargo())
 
-	want := cmd.Analista
+	want := model.Analista
 	got := f.Cargo
 
 	if got != want {
@@ -24,15 +24,15 @@ func Test_PromocaoAssistente(t *testing.T) {
 }
 
 func Test_PromocaoAnalista(t *testing.T) {
-	f := cmd.Funcionario{
+	f := model.Funcionario{
 		Nome:               "John Doe",
 		Cpf:                "01234567899",
-		Cargo:              cmd.Analista,
+		Cargo:              model.Analista,
 		DataUltimoReajuste: time.Now().AddDate(-1, 0, 0),
 	}
 	f.Promover(f.Cargo.ProximoCargo())
 
-	want := cmd.Especialista
+	want := model.Especialista
 	got := f.Cargo
 
 	if got != want {
@@ -41,15 +41,15 @@ func Test_PromocaoAnalista(t *testing.T) {
 }
 
 func Test_PromocaoEspecialista(t *testing.T) {
-	f := cmd.Funcionario{
+	f := model.Funcionario{
 		Nome:               "John Doe",
 		Cpf:                "01234567899",
-		Cargo:              cmd.Especialista,
+		Cargo:              model.Especialista,
 		DataUltimoReajuste: time.Now().AddDate(-1, 0, 0),
 	}
 	f.Promover(f.Cargo.ProximoCargo())
 
-	want := cmd.Gerente
+	want := model.Gerente
 	got := f.Cargo
 
 	if got != want {
@@ -58,15 +58,15 @@ func Test_PromocaoEspecialista(t *testing.T) {
 }
 
 func Test_PromocaoGerente_Error(t *testing.T) {
-	f := cmd.Funcionario{
+	f := model.Funcionario{
 		Nome:               "John Doe",
 		Cpf:                "01234567899",
-		Cargo:              cmd.Gerente,
+		Cargo:              model.Gerente,
 		DataUltimoReajuste: time.Now().AddDate(-1, 0, 0),
 	}
 	f.Promover(f.Cargo.ProximoCargo())
 
-	want := cmd.Gerente
+	want := model.Gerente
 	got := f.Cargo
 
 	if got != want {
