@@ -1,19 +1,12 @@
 package internal
 
 import (
-	"fmt"
 	"rh/cmd/model"
 	"rh/internal/service/reajuste/validacao"
-	"strings"
 	"time"
 )
 
-func validarDadosReajuste(f *model.Funcionario, aumento float64) []error {
-	validacoes := []validacao.ValidacaoReajuste{
-		validacao.ValidacaoPercentual{},
-		validacao.ValidacaoPeriodicidade{},
-	}
-
+func validarDadosReajuste(f *model.Funcionario, aumento float64, validacoes []validacao.ValidacaoReajuste) []error {
 	var errors []error
 	for _, validacao := range validacoes {
 		if err := validacao.Validate(f, aumento); err != nil {
@@ -24,14 +17,10 @@ func validarDadosReajuste(f *model.Funcionario, aumento float64) []error {
 	return errors
 }
 
-func ReajustarSalario(f *model.Funcionario, aumento float64) error {
-	errors := validarDadosReajuste(f, aumento)
+func ReajustarSalario(f *model.Funcionario, aumento float64, validacoes []validacao.ValidacaoReajuste) error {
+	errors := validarDadosReajuste(f, aumento, validacoes)
 	if len(errors) > 0 {
-		var strErr string
-		for _, err := range errors {
-			strErr += err.Error() + "\n"
-		}
-		return fmt.Errorf(strings.Trim(strErr, "\n"))
+		return errors[len(errors)-1]
 	}
 
 	f.AtualizarSalario(aumento)

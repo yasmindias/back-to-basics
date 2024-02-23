@@ -30,7 +30,7 @@ func Test_PromocaoAnalista(t *testing.T) {
 		DadosPessoais: model.DadosPessoais{
 			Nome:  "John Doe",
 			Cpf:   "01234567899",
-			Cargo: model.Assistente,
+			Cargo: model.Analista,
 		},
 		DataUltimoReajuste: time.Now().AddDate(-1, 0, 0),
 	}
@@ -49,7 +49,7 @@ func Test_PromocaoEspecialista(t *testing.T) {
 		DadosPessoais: model.DadosPessoais{
 			Nome:  "John Doe",
 			Cpf:   "01234567899",
-			Cargo: model.Assistente,
+			Cargo: model.Especialista,
 		},
 		DataUltimoReajuste: time.Now().AddDate(-1, 0, 0),
 	}
@@ -68,7 +68,7 @@ func Test_PromocaoGerente_Error(t *testing.T) {
 		DadosPessoais: model.DadosPessoais{
 			Nome:  "John Doe",
 			Cpf:   "01234567899",
-			Cargo: model.Assistente,
+			Cargo: model.Gerente,
 		},
 		DataUltimoReajuste: time.Now().AddDate(-1, 0, 0),
 	}

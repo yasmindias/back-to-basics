@@ -5,8 +5,8 @@ import (
 )
 
 type Funcionario struct {
-	DadosPessoais      DadosPessoais
-	DataUltimoReajuste time.Time
+	DadosPessoais      DadosPessoais `json:"dados_pessoais"`
+	DataUltimoReajuste time.Time     `json:"data_ultimo_reajuste"`
 }
 
 func (f *Funcionario) AtualizarSalario(aumento float64) {
