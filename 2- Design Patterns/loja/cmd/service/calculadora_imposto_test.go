@@ -1,18 +1,18 @@
 package service
 
 import (
+	"design-patterns-loja/cmd/impostos"
 	"design-patterns-loja/cmd/model"
 	"testing"
 )
 
 func TestCalcular(t *testing.T) {
 	type args struct {
-		orcamento   model.Orcamento
-		tipoImposto model.Imposto
+		orcamento model.Orcamento
+		imposto   impostos.Imposto
 	}
-
-	orcamento := model.Orcamento{}
-	orcamento.SetValor(100)
+	o := model.Orcamento{}
+	o.SetValor(100)
 
 	tests := []struct {
 		name string
@@ -21,18 +21,18 @@ func TestCalcular(t *testing.T) {
 	}{
 		{
 			name: "ICMS",
-			args: args{orcamento, model.ICMS},
+			args: args{orcamento: o, imposto: impostos.Imposto(impostos.ICMS{})},
 			want: 10,
 		},
 		{
 			name: "ISS",
-			args: args{orcamento, model.ISS},
+			args: args{orcamento: o, imposto: impostos.Imposto(impostos.ISS{})},
 			want: 6,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Calcular(tt.args.orcamento, tt.args.tipoImposto); got != tt.want {
+			if got := Calcular(tt.args.orcamento, tt.args.imposto); got != tt.want {
 				t.Errorf("Calcular() = %v, want %v", got, tt.want)
 			}
 		})
